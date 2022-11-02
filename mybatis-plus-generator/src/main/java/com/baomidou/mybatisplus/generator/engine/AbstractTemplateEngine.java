@@ -354,6 +354,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("swagger", globalConfig.isSwagger());
         objectMap.put("springdoc", globalConfig.isSpringdoc());
         objectMap.put("date", globalConfig.getCommentDate());
+        objectMap.put("param", globalConfig.getParam());
         // 启用 schema 处理逻辑
         String schemaName = "";
         if (strategyConfig.isEnableSchema()) {

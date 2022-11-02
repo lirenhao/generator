@@ -1,18 +1,16 @@
 package ${package.Mapper};
 
 import ${superMapperClassPackage};
-import ${package.Entity}.${entity}Entity;
+import ${package.Entity}.${entity};
 <#if mapperAnnotationClass??>
 import ${mapperAnnotationClass.name};
 </#if>
 
 /**
- * <p>
- * ${table.comment!} Mapper 接口
- * </p>
+ * ${table.comment!?replace("表", "")} Mapper 接口
  *
  * @author ${author}
- * @since ${date}
+ * @date ${date}
  */
 <#if mapperAnnotationClass??>
 @${mapperAnnotationClass.simpleName}
@@ -20,7 +18,7 @@ import ${mapperAnnotationClass.name};
 <#if kotlin>
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 <#else>
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}Entity> {
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
 }
 </#if>

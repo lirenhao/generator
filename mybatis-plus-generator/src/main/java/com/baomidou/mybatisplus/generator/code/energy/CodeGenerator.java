@@ -1,14 +1,10 @@
 package com.baomidou.mybatisplus.generator.code.energy;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.baomidou.mybatisplus.generator.fill.Column;
-import com.baomidou.mybatisplus.generator.fill.Property;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +22,6 @@ public class CodeGenerator {
 
     /**
      * 获取路径信息map
-     *
-     * @return {@link Map< OutputFile, String> }
-     * @author MK
-     * @date 2022/4/21 21:21
      */
     private static Map<OutputFile, String> getPathInfo(String moduleName) {
         Map<OutputFile, String> pathInfo = new HashMap<>();
@@ -39,6 +31,7 @@ public class CodeGenerator {
         pathInfo.put(OutputFile.service, String.format("%s/service/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.serviceImpl, String.format("%s/service/%s/impl", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.controller, String.format("%s/manager/controller/%s", PARENT_DIR, moduleName));
+//        pathInfo.put(OutputFile.valueOf("Dto"), String.format("%s/model/dto/%s", PARENT_DIR, moduleName));
         return pathInfo;
     }
 
@@ -50,7 +43,11 @@ public class CodeGenerator {
                 "jdbc:mysql://47.92.67.211:8267/kejian-framework-energy", "root", "daidaihuanbao2020"
             )
             // 全局配置
-            .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
+            .globalConfig(builder -> builder
+                .author("lirenhao")
+                .param("dtoPath", String.format("com.kejian.framework.energy.model.dto.%s", moduleName))
+                .param("voPath", String.format("com.kejian.framework.energy.model.vo.%s", moduleName))
+                .enableSwagger())
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
                 .entity(String.format("com.kejian.framework.energy.model.entity.%s", moduleName))
@@ -66,20 +63,25 @@ public class CodeGenerator {
                 .enableLombok()
                 .enableRemoveIsPrefix()
                 .logicDeleteColumnName("deleted")
-//                .addIgnoreColumns("id", "create_by", "create_time", "update_by", "updateTime", "tenant_id", "deleted", "disabled", "sort")
+                .addIgnoreColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
+                .formatFileName("%sEntity")
+                .enableFileOverride()
                 .controllerBuilder()
                 .enableRestStyle()
                 .formatFileName("%sController")
+                .enableFileOverride()
                 .serviceBuilder()
                 .superServiceClass(IService.class)
                 .formatServiceFileName("I%sService")
                 .formatServiceImplFileName("%sServiceImp")
+                .enableFileOverride()
                 .mapperBuilder()
                 .enableBaseResultMap()
                 .enableBaseColumnList()
                 .superClass(BaseMapper.class)
                 .formatMapperFileName("%sMapper")
                 .formatXmlFileName("%sMapper")
+                .enableFileOverride()
             )
             // 使用Freemarker引擎模板，默认的是Velocity引擎模板
             .templateEngine(new FreemarkerTemplateEngine()).execute();
