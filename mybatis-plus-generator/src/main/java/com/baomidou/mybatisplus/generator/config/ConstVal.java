@@ -35,6 +35,8 @@ public interface ConstVal {
     String MAPPER = "Mapper";
     String XML = "Xml";
     String CONTROLLER = "Controller";
+    String VO = "VO";
+    String DTO = "DTO";
     String PARENT = "Parent";
 
     String JAVA_TMPDIR = "java.io.tmpdir";
@@ -79,6 +81,16 @@ public interface ConstVal {
      * ServiceImpl模板路径
      */
     String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
+
+    String TEMPLATE_VO = "/templates/vo.java";
+
+    String TEMPLATE_QUERY_DTO = "/templates/dto.query.java";
+
+    String TEMPLATE_INSERT_DTO = "/templates/dto.insert.java";
+
+    String TEMPLATE_UPDATE_DTO = "/templates/dto.update.java";
+
+    String TEMPLATE_DELETE_DTO = "/templates/dto.delete.java";
 
     String VM_LOAD_PATH_KEY = "file.resource.loader.class";
     String VM_LOAD_PATH_VALUE = "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader";

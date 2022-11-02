@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static org.beetl.core.fun.ObjectUtil.getClassLoader;
 
 /**
  * 代码生成
@@ -31,7 +34,8 @@ public class CodeGenerator {
         pathInfo.put(OutputFile.service, String.format("%s/service/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.serviceImpl, String.format("%s/service/%s/impl", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.controller, String.format("%s/manager/controller/%s", PARENT_DIR, moduleName));
-//        pathInfo.put(OutputFile.valueOf("Dto"), String.format("%s/model/dto/%s", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.dto, String.format("%s/model/dto/%s", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.vo, String.format("%s/model/vo/%s", PARENT_DIR, moduleName));
         return pathInfo;
     }
 
@@ -39,15 +43,19 @@ public class CodeGenerator {
         String moduleName = "sys";
         // 要构建代码的表名
         String[] tableNames = {"sys_org"};
+        Map<String, Object> customMap = new HashMap<>();
+        customMap.put("dtoPath", String.format("com.kejian.framework.energy.model.dto.%s", moduleName));
+        customMap.put("voPath", String.format("com.kejian.framework.energy.model.vo.%s", moduleName));
+
         FastAutoGenerator.create(
                 "jdbc:mysql://47.92.67.211:8267/kejian-framework-energy", "root", "daidaihuanbao2020"
             )
             // 全局配置
             .globalConfig(builder -> builder
                 .author("lirenhao")
-                .param("dtoPath", String.format("com.kejian.framework.energy.model.dto.%s", moduleName))
-                .param("voPath", String.format("com.kejian.framework.energy.model.vo.%s", moduleName))
                 .enableSwagger())
+            .injectionConfig(builder -> builder
+                .customMap(customMap))
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
                 .entity(String.format("com.kejian.framework.energy.model.entity.%s", moduleName))
@@ -55,6 +63,8 @@ public class CodeGenerator {
                 .service(String.format("com.kejian.framework.energy.service.%s", moduleName))
                 .serviceImpl(String.format("com.kejian.framework.energy.service.%s.impl", moduleName))
                 .controller(String.format("com.kejian.framework.energy.manager.controller.%s", moduleName))
+                .dto(String.format("com.kejian.framework.energy.model.dto.%s", moduleName))
+                .vo(String.format("com.kejian.framework.energy.model.vo.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
@@ -81,6 +91,10 @@ public class CodeGenerator {
                 .superClass(BaseMapper.class)
                 .formatMapperFileName("%sMapper")
                 .formatXmlFileName("%sMapper")
+                .enableFileOverride()
+                .voBuilder()
+                .enableFileOverride()
+                .dtoBuilder()
                 .enableFileOverride()
             )
             // 使用Freemarker引擎模板，默认的是Velocity引擎模板

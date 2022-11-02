@@ -74,6 +74,10 @@ public class PackageConfig {
      */
     private String controller = "controller";
 
+    private String vo = "vo";
+
+    private String dto = "dto";
+
     /**
      * 路径配置信息
      */
@@ -125,6 +129,8 @@ public class PackageConfig {
             packageInfo.put(ConstVal.SERVICE, this.joinPackage(this.getService()));
             packageInfo.put(ConstVal.SERVICE_IMPL, this.joinPackage(this.getServiceImpl()));
             packageInfo.put(ConstVal.CONTROLLER, this.joinPackage(this.getController()));
+            packageInfo.put(ConstVal.VO, this.joinPackage(this.getVo()));
+            packageInfo.put(ConstVal.DTO, this.joinPackage(this.getDto()));
             packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);
@@ -167,6 +173,14 @@ public class PackageConfig {
 
     public String getController() {
         return controller;
+    }
+
+    public String getVo() {
+        return vo;
+    }
+
+    public String getDto() {
+        return dto;
     }
 
     public Map<OutputFile, String> getPathInfo() {
@@ -278,6 +292,16 @@ public class PackageConfig {
          */
         public Builder controller(@NotNull String controller) {
             this.packageConfig.controller = controller;
+            return this;
+        }
+
+        public Builder vo(@NotNull String vo) {
+            this.packageConfig.vo = vo;
+            return this;
+        }
+
+        public Builder dto(@NotNull String dto) {
+            this.packageConfig.dto = dto;
             return this;
         }
 

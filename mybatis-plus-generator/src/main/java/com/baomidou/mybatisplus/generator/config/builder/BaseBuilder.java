@@ -54,6 +54,16 @@ public class BaseBuilder implements IConfigBuilder<StrategyConfig> {
     }
 
     @NotNull
+    public Vo.Builder voBuilder() {
+        return strategyConfig.voBuilder();
+    }
+
+    @NotNull
+    public Dto.Builder dtoBuilder() {
+        return strategyConfig.dtoBuilder();
+    }
+
+    @NotNull
     @Override
     public StrategyConfig build() {
         this.strategyConfig.validate();

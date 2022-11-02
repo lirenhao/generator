@@ -125,6 +125,48 @@ public abstract class AbstractTemplateEngine {
         }
     }
 
+    protected void outputVo(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+        // VO.java
+        String entityName = tableInfo.getEntityName();
+        String voPath = getPathInfo(OutputFile.vo);
+        if (StringUtils.isNotBlank(tableInfo.getVoName()) && StringUtils.isNotBlank(voPath)) {
+            getTemplateFilePath(TemplateConfig::getVo).ifPresent(vo -> {
+                String voFile = String.format((voPath + File.separator + tableInfo.getVoName() + suffixJavaOrKt()), entityName);
+                outputFile(new File(voFile), objectMap, vo, getConfigBuilder().getStrategyConfig().vo().isFileOverride());
+            });
+        }
+    }
+
+    protected void outputDto(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+        // DTO.java
+        String entityName = tableInfo.getEntityName();
+        String dtoPath = getPathInfo(OutputFile.dto);
+        if (StringUtils.isNotBlank(tableInfo.getQueryDtoName()) && StringUtils.isNotBlank(dtoPath)) {
+            getTemplateFilePath(TemplateConfig::getQueryDto).ifPresent(dto -> {
+                String dtoFile = String.format((dtoPath + File.separator + tableInfo.getQueryDtoName() + suffixJavaOrKt()), entityName);
+                outputFile(new File(dtoFile), objectMap, dto, getConfigBuilder().getStrategyConfig().dto().isFileOverride());
+            });
+        }
+        if (StringUtils.isNotBlank(tableInfo.getInserDtotName()) && StringUtils.isNotBlank(dtoPath)) {
+            getTemplateFilePath(TemplateConfig::getInsertDto).ifPresent(dto -> {
+                String dtoFile = String.format((dtoPath + File.separator + tableInfo.getInserDtotName() + suffixJavaOrKt()), entityName);
+                outputFile(new File(dtoFile), objectMap, dto, getConfigBuilder().getStrategyConfig().dto().isFileOverride());
+            });
+        }
+        if (StringUtils.isNotBlank(tableInfo.getUpdateDtoName()) && StringUtils.isNotBlank(dtoPath)) {
+            getTemplateFilePath(TemplateConfig::getUpdateDto).ifPresent(dto -> {
+                String dtoFile = String.format((dtoPath + File.separator + tableInfo.getUpdateDtoName() + suffixJavaOrKt()), entityName);
+                outputFile(new File(dtoFile), objectMap, dto, getConfigBuilder().getStrategyConfig().dto().isFileOverride());
+            });
+        }
+        if (StringUtils.isNotBlank(tableInfo.getDeleteDtoName()) && StringUtils.isNotBlank(dtoPath)) {
+            getTemplateFilePath(TemplateConfig::getDeleteDto).ifPresent(dto -> {
+                String dtoFile = String.format((dtoPath + File.separator + tableInfo.getDeleteDtoName() + suffixJavaOrKt()), entityName);
+                outputFile(new File(dtoFile), objectMap, dto, getConfigBuilder().getStrategyConfig().dto().isFileOverride());
+            });
+        }
+    }
+
     /**
      * 输出service文件
      *
@@ -257,6 +299,10 @@ public abstract class AbstractTemplateEngine {
                 outputEntity(tableInfo, objectMap);
                 // mapper and xml
                 outputMapper(tableInfo, objectMap);
+                // vo
+                outputVo(tableInfo, objectMap);
+                // dto
+                outputDto(tableInfo, objectMap);
                 // service
                 outputService(tableInfo, objectMap);
                 // controller
@@ -354,7 +400,6 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("swagger", globalConfig.isSwagger());
         objectMap.put("springdoc", globalConfig.isSpringdoc());
         objectMap.put("date", globalConfig.getCommentDate());
-        objectMap.put("param", globalConfig.getParam());
         // 启用 schema 处理逻辑
         String schemaName = "";
         if (strategyConfig.isEnableSchema()) {

@@ -121,6 +121,10 @@ public class StrategyConfig {
 
     private final Service.Builder serviceBuilder = new Service.Builder(this);
 
+    private final Vo.Builder voBuilder = new Vo.Builder(this);
+
+    private final Dto.Builder dtoBuilder = new Dto.Builder(this);
+
     private Entity entity;
 
     private Controller controller;
@@ -128,6 +132,10 @@ public class StrategyConfig {
     private Mapper mapper;
 
     private Service service;
+
+    private Vo vo;
+
+    private Dto dto;
 
     /**
      * 实体配置构建者
@@ -215,6 +223,16 @@ public class StrategyConfig {
         return serviceBuilder;
     }
 
+    @NotNull
+    public Vo.Builder voBuilder() {
+        return voBuilder;
+    }
+
+    @NotNull
+    public Dto.Builder dtoBuilder() {
+        return dtoBuilder;
+    }
+
     /**
      * Service配置
      *
@@ -227,6 +245,22 @@ public class StrategyConfig {
             this.service = serviceBuilder.get();
         }
         return service;
+    }
+
+    @NotNull
+    public Vo vo() {
+        if (vo == null) {
+            this.vo = voBuilder.get();
+        }
+        return vo;
+    }
+
+    @NotNull
+    public Dto dto() {
+        if (dto == null) {
+            this.dto = dtoBuilder.get();
+        }
+        return dto;
     }
 
     /**

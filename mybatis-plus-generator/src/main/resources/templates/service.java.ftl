@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
-import ${param.dtoPath}.${entity?replace("Entity", "")}DeleteDTO;
-import ${param.dtoPath}.${entity?replace("Entity", "")}InsertDTO;
-import ${param.dtoPath}.${entity?replace("Entity", "")}QueryDTO;
-import ${param.dtoPath}.${entity?replace("Entity", "")}UpdateDTO;
-import ${param.voPath}.${entity?replace("Entity", "")}VO;
+import ${package.DTO}.${entity?replace("Entity", "")}DeleteDTO;
+import ${package.DTO}.${entity?replace("Entity", "")}InsertDTO;
+import ${package.DTO}.${entity?replace("Entity", "")}QueryDTO;
+import ${package.DTO}.${entity?replace("Entity", "")}UpdateDTO;
+import ${package.VO}.${entity?replace("Entity", "")}VO;
 
 /**
  * ${table.comment!?replace("表", "")} 服务类

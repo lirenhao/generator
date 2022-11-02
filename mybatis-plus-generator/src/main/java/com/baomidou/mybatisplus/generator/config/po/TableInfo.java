@@ -98,6 +98,16 @@ public class TableInfo {
      */
     private String controllerName;
 
+    private String voName;
+
+    private String queryDtoName;
+
+    private String inserDtotName;
+
+    private String updateDtoName;
+
+    private String deleteDtoName;
+
     /**
      * 表字段
      */
@@ -280,6 +290,11 @@ public class TableInfo {
         this.serviceName = strategyConfig.service().getConverterServiceFileName().convert(entityName);
         this.serviceImplName = strategyConfig.service().getConverterServiceImplFileName().convert(entityName);
         this.controllerName = strategyConfig.controller().getConverterFileName().convert(entityName);
+        this.voName = strategyConfig.vo().getConverterVoFileName().convert(entityName);
+        this.queryDtoName = strategyConfig.dto().getConverterQueryDtoFileName().convert(entityName);
+        this.inserDtotName = strategyConfig.dto().getConverterInsertDtoFileName().convert(entityName);
+        this.updateDtoName = strategyConfig.dto().getConverterUpdateDtoFileName().convert(entityName);
+        this.deleteDtoName = strategyConfig.dto().getConverterDeleteDtoFileName().convert(entityName);
         this.importPackage();
     }
 
@@ -339,6 +354,26 @@ public class TableInfo {
 
     public String getControllerName() {
         return controllerName;
+    }
+
+    public String getVoName() {
+        return voName;
+    }
+
+    public String getQueryDtoName() {
+        return queryDtoName;
+    }
+
+    public String getInserDtotName() {
+        return inserDtotName;
+    }
+
+    public String getUpdateDtoName() {
+        return updateDtoName;
+    }
+
+    public String getDeleteDtoName() {
+        return deleteDtoName;
     }
 
     @NotNull

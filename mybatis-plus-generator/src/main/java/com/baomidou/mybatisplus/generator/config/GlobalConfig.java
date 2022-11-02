@@ -87,8 +87,6 @@ public class GlobalConfig {
      */
     private Supplier<String> commentDate = () -> new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-    private Map<String, String> param = new HashMap<>();
-
     public String getOutputDir() {
         return outputDir;
     }
@@ -130,10 +128,6 @@ public class GlobalConfig {
     @NotNull
     public String getCommentDate() {
         return commentDate.get();
-    }
-
-    public Map<String, String> getParam() {
-        return param;
     }
 
     /**
@@ -238,14 +232,6 @@ public class GlobalConfig {
          */
         public Builder commentDate(@NotNull String pattern) {
             return commentDate(() -> new SimpleDateFormat(pattern).format(new Date()));
-        }
-
-        /**
-         * 自定义参数
-         */
-        public Builder param(@NotNull String key, String value) {
-            this.globalConfig.param.put(key, value);
-            return this;
         }
 
         @Override

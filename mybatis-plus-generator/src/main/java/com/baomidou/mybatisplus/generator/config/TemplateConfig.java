@@ -65,6 +65,16 @@ public class TemplateConfig {
      */
     private String serviceImpl;
 
+    private String vo;
+
+    private String queryDto;
+
+    private String insertDto;
+
+    private String updateDto;
+
+    private String deleteDto;
+
     /**
      * 是否禁用实体模板（默认 false）
      */
@@ -81,6 +91,11 @@ public class TemplateConfig {
         this.xml = ConstVal.TEMPLATE_XML;
         this.service = ConstVal.TEMPLATE_SERVICE;
         this.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
+        this.vo = ConstVal.TEMPLATE_VO;
+        this.queryDto = ConstVal.TEMPLATE_QUERY_DTO;
+        this.insertDto = ConstVal.TEMPLATE_INSERT_DTO;
+        this.updateDto = ConstVal.TEMPLATE_UPDATE_DTO;
+        this.deleteDto = ConstVal.TEMPLATE_DELETE_DTO;
     }
 
     /**
@@ -178,6 +193,26 @@ public class TemplateConfig {
 
     public String getController() {
         return controller;
+    }
+
+    public String getVo() {
+        return vo;
+    }
+
+    public String getQueryDto() {
+        return queryDto;
+    }
+
+    public String getInsertDto() {
+        return insertDto;
+    }
+
+    public String getUpdateDto() {
+        return updateDto;
+    }
+
+    public String getDeleteDto() {
+        return deleteDto;
     }
 
     /**
@@ -292,6 +327,11 @@ public class TemplateConfig {
          */
         public Builder controller(@NotNull String controllerTemplate) {
             this.templateConfig.controller = controllerTemplate;
+            return this;
+        }
+
+        public Builder vo(@NotNull String voTemplate) {
+            this.templateConfig.vo = voTemplate;
             return this;
         }
 
