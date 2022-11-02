@@ -1,7 +1,7 @@
 package ${package.Mapper};
 
-import ${package.Entity}.${entity};
 import ${superMapperClassPackage};
+import ${package.Entity}.${entity}Entity;
 <#if mapperAnnotationClass??>
 import ${mapperAnnotationClass.name};
 </#if>
@@ -20,7 +20,7 @@ import ${mapperAnnotationClass.name};
 <#if kotlin>
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 <#else>
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}Entity> {
 
 }
 </#if>
