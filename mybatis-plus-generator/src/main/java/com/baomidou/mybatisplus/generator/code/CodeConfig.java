@@ -1,21 +1,19 @@
-package com.baomidou.mybatisplus.generator.code.energy;
+package com.baomidou.mybatisplus.generator.code;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import static org.beetl.core.fun.ObjectUtil.getClassLoader;
 
 /**
  * 代码生成
  */
-public class CodeGenerator {
+public class CodeConfig {
 
     /**
      * 项目路径
@@ -39,14 +37,7 @@ public class CodeGenerator {
         return pathInfo;
     }
 
-    public static void main(String[] args) {
-        String moduleName = "sys";
-        // 要构建代码的表名
-        String[] tableNames = {"sys_org"};
-        Map<String, Object> customMap = new HashMap<>();
-        customMap.put("dtoPath", String.format("com.kejian.framework.energy.model.dto.%s", moduleName));
-        customMap.put("voPath", String.format("com.kejian.framework.energy.model.vo.%s", moduleName));
-
+    public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
                 "jdbc:mysql://47.92.67.211:8267/kejian-framework-energy", "root", "daidaihuanbao2020"
             )
@@ -54,8 +45,8 @@ public class CodeGenerator {
             .globalConfig(builder -> builder
                 .author("lirenhao")
                 .enableSwagger())
-            .injectionConfig(builder -> builder
-                .customMap(customMap))
+            // 其他配置
+            .injectionConfig(InjectionConfig.Builder::build)
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
                 .entity(String.format("com.kejian.framework.energy.model.entity.%s", moduleName))
