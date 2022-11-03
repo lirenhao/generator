@@ -27,7 +27,17 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public IPage<${entity?replace("Entity", "")}VO> getPage(SysOrgQueryDTO query, Page<${entity}> page) {
-        return null;
+        return this.page(page, new LambdaQueryWrapper<${entity}>()
+                .eq(${entity}::getDeleted, DeletedEnum.FALSE.value())
+                .eq(StrUtil.isNotBlank(query.getId()), ${entity}::getId, query.getId())
+                .like(StrUtil.isNotBlank(query.getName()), ${entity}::getName, query.getName())
+                .orderByDesc(SysOrgEntity::getSort)
+                .orderByDesc(SysOrgEntity::getCreateTime)
+        ).convert(data -> {
+        ${entity?replace("Entity", "")}VO result = new ${entity?replace("Entity", "")}VO();
+            BeanUtil.copyProperties(data, result);
+            return result;
+        });
     }
 
     @Override

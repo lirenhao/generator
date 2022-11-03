@@ -43,8 +43,8 @@ public class TypeRegistry {
         typeMap.put(Types.BLOB, DbColumnType.BYTE_ARRAY);
         typeMap.put(Types.LONGVARBINARY, DbColumnType.BYTE_ARRAY);
         typeMap.put(Types.VARBINARY, DbColumnType.BYTE_ARRAY);
-        //byte
-        typeMap.put(Types.TINYINT, DbColumnType.BYTE);
+        //INTEGER
+        typeMap.put(Types.TINYINT, DbColumnType.INTEGER);
         //long
         typeMap.put(Types.BIGINT, DbColumnType.LONG);
         //boolean
@@ -62,7 +62,7 @@ public class TypeRegistry {
         typeMap.put(Types.NCLOB, DbColumnType.STRING);
         typeMap.put(Types.NVARCHAR, DbColumnType.STRING);
         //date
-        typeMap.put(Types.DATE, DbColumnType.DATE);
+        typeMap.put(Types.DATE, DbColumnType.LOCAL_DATE);
         //timestamp
         typeMap.put(Types.TIMESTAMP, DbColumnType.TIMESTAMP);
         //double
