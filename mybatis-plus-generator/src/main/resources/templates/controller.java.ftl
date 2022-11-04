@@ -58,7 +58,7 @@ public class ${table.controllerName} extends BaseController {
         return RestBody.okData("修改成功");
     }
 
-    @ApiOperation("删除角色")
+    @ApiOperation("删除")
     @PostMapping("/delete")
     public Rest<String> delete(@Valid @RequestBody ${entity?replace("Entity", "")}DeleteDTO record) {
         ${entity?uncap_first?replace("Entity", "")}Service.deleteById(record);

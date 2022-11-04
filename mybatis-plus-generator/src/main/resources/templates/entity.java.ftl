@@ -1,5 +1,8 @@
 package ${package.Entity};
 
+<#list table.importPackages as pkg>
+import ${pkg};
+</#list>
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.kejian.framework.energy.model.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
