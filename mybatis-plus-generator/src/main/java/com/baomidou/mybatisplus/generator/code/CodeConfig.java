@@ -39,7 +39,7 @@ public class CodeConfig {
 
     public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
-                "jdbc:mysql://47.92.67.211:8267/kejian-framework-energy", "root", "daidaihuanbao2020"
+                "jdbc:mysql://39.98.225.14:3306/kejian-framework-energy", "kejian-framework-energy", "kejian-framework-energy"
             )
             // 全局配置
             .globalConfig(builder -> builder
@@ -64,7 +64,7 @@ public class CodeConfig {
                 .enableLombok()
                 .enableRemoveIsPrefix()
                 .logicDeleteColumnName("deleted")
-                .addIgnoreColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
+                // .addIgnoreColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
                 .formatFileName("%sEntity")
                 .enableFileOverride()
                 .controllerBuilder()
@@ -74,7 +74,7 @@ public class CodeConfig {
                 .serviceBuilder()
                 .superServiceClass(IService.class)
                 .formatServiceFileName("I%sService")
-                .formatServiceImplFileName("%sServiceImp")
+                .formatServiceImplFileName("%sServiceImpl")
                 .enableFileOverride()
                 .mapperBuilder()
                 .enableBaseResultMap()

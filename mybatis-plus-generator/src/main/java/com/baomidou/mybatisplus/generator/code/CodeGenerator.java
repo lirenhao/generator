@@ -13,5 +13,13 @@ public class CodeGenerator {
         CodeConfig.generator("contract",
             new String[]{"contract", "contract_price", "contract_active", "contract_resume"}
         );
+
+        CodeConfig.generator("complex",
+            new String[]{"contract", "contract_price", "contract_active", "contract_resume"}
+        );
+
+        CodeConfig.generator("base",
+            new String[]{"base_seq", "base_app"}
+        );
     }
 }
