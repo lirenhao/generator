@@ -1,4 +1,4 @@
-package com.baomidou.mybatisplus.generator.code.energy;
+package com.baomidou.mybatisplus.generator.code;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -43,45 +43,47 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "sys";
+        String moduleName = "device";
         // 要构建代码的表名
-        String[] tableNames = {"sys_org"};
+        String[] tableNames = {"gm_device_watch_record"};
         FastAutoGenerator.create(
-                "jdbc:mysql://47.92.67.211:8267/kejian-framework-energy", "root", "daidaihuanbao2020"
+                "jdbc:mysql://192.168.11.99:3306/equipment", "equipment", "123456"
             )
             // 全局配置
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.kejian.framework.energy.model.entity.%s", moduleName))
-                .mapper(String.format("com.kejian.framework.energy.dao.%s", moduleName))
-                .service(String.format("com.kejian.framework.energy.service.%s", moduleName))
-                .serviceImpl(String.format("com.kejian.framework.energy.service.%s.impl", moduleName))
-                .controller(String.format("com.kejian.framework.energy.manager.controller.%s", moduleName))
+                .entity(String.format("com.daidai.equipment.dao.%s.entity", moduleName))
+                .mapper(String.format("com.daidai.equipment.dao.%s.mapper", moduleName))
+                .service(String.format("com.daidai.equipment.service.%s", moduleName))
+                .serviceImpl(String.format("com.daidai.equipment.service.%s.impl", moduleName))
+                .controller(String.format("com.daidai.equipment.controller.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
                 .entityBuilder()
+                .formatFileName("%sDO")
                 .enableChainModel()
                 .enableLombok()
                 .enableRemoveIsPrefix()
-                .logicDeleteColumnName("deleted")
                 .idType(IdType.ASSIGN_ID)
-                .addTableFills(new Column("create_time", FieldFill.INSERT))
-                .addTableFills(new Property("updateTime", FieldFill.INSERT_UPDATE))
+                .enableFileOverride()
                 .controllerBuilder()
                 .enableRestStyle()
                 .formatFileName("%sController")
+                .enableFileOverride()
                 .serviceBuilder()
                 .superServiceClass(IService.class)
                 .formatServiceFileName("I%sService")
-                .formatServiceImplFileName("%sServiceImp")
+                .formatServiceImplFileName("%sServiceImpl")
+                .enableFileOverride()
                 .mapperBuilder()
                 .enableBaseResultMap()
                 .enableBaseColumnList()
                 .superClass(BaseMapper.class)
                 .formatMapperFileName("%sMapper")
                 .formatXmlFileName("%sMapper")
+                .enableFileOverride()
             )
             // 使用Freemarker引擎模板，默认的是Velocity引擎模板
             .templateEngine(new FreemarkerTemplateEngine()).execute();

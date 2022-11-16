@@ -176,7 +176,7 @@ public class AutoGenerator {
         }
         templateEngine.setConfigBuilder(config);
         // 模板引擎初始化执行文件输出
-        templateEngine.init(config).batchOutput().open();
+        templateEngine.init(config).batchOutput();
         logger.debug("==========================文件生成完成！！！==========================");
     }
 
