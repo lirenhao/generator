@@ -21,5 +21,9 @@ public class CodeGenerator {
         CodeConfig.generator("base",
             new String[]{"base_seq", "base_app"}
         );
+
+        CodeConfig.generator("delivery",
+            new String[]{"delivery"}
+        );
     }
 }

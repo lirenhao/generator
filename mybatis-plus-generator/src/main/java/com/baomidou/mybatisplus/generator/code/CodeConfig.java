@@ -64,7 +64,7 @@ public class CodeConfig {
                 .enableLombok()
                 .enableRemoveIsPrefix()
                 .logicDeleteColumnName("deleted")
-                // .addIgnoreColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
+                .addSuperEntityColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
                 .formatFileName("%sEntity")
                 .enableFileOverride()
                 .controllerBuilder()
