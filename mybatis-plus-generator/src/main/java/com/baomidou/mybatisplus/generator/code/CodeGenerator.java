@@ -33,8 +33,8 @@ public class CodeGenerator {
      */
     private static Map<OutputFile, String> getPathInfo(String moduleName) {
         Map<OutputFile, String> pathInfo = new HashMap<>();
-        pathInfo.put(OutputFile.entity, String.format("%s/model/entity/%s", PARENT_DIR, moduleName));
-        pathInfo.put(OutputFile.mapper, String.format("%s/dao/%s", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.entity, String.format("%s/dao/%s/entity", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.mapper, String.format("%s/dao/%s/mapper", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.xml, String.format("%s/mapper/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.service, String.format("%s/service/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.serviceImpl, String.format("%s/service/%s/impl", PARENT_DIR, moduleName));
@@ -43,21 +43,21 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "device";
+        String moduleName = "expert";
         // 要构建代码的表名
-        String[] tableNames = {"gm_device_watch_record"};
+        String[] tableNames = {"exp_order", "exp_evaluate"};
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.99:3306/equipment", "equipment", "123456"
+                "jdbc:mysql://192.168.11.99:3306/zl_new", "test_root", "root123123"
             )
             // 全局配置
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.daidai.equipment.dao.%s.entity", moduleName))
-                .mapper(String.format("com.daidai.equipment.dao.%s.mapper", moduleName))
-                .service(String.format("com.daidai.equipment.service.%s", moduleName))
-                .serviceImpl(String.format("com.daidai.equipment.service.%s.impl", moduleName))
-                .controller(String.format("com.daidai.equipment.controller.%s", moduleName))
+                .entity(String.format("com.kejian.tool.zl.dao.%s.entity", moduleName))
+                .mapper(String.format("com.kejian.tool.zl.dao.%s.mapper", moduleName))
+                .service(String.format("com.kejian.tool.zl.service.%s", moduleName))
+                .serviceImpl(String.format("com.kejian.tool.zl.service.%s.impl", moduleName))
+                .controller(String.format("com.kejian.tool.zl.app.controller.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
