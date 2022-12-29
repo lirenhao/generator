@@ -45,7 +45,7 @@ public class CodeGenerator {
     public static void main(String[] args) {
         String moduleName = "expert";
         // 要构建代码的表名
-        String[] tableNames = {"exp_order", "exp_evaluate"};
+        String[] tableNames = {"exp_order", "exp_evaluate", "exp_ratings"};
         FastAutoGenerator.create(
                 "jdbc:mysql://192.168.11.99:3306/zl_new", "test_root", "root123123"
             )
