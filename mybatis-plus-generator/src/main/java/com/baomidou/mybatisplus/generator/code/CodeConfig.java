@@ -39,7 +39,7 @@ public class CodeConfig {
 
     public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
-                "jdbc:mysql://39.98.225.14:3306/kejian-framework-energy", "kejian-framework-energy", "kejian-framework-energy"
+                "jdbc:mysql://192.168.11.99:3306/kejian-framework-energy", "kejian-framework-energy", "kejian-framework-energy"
             )
             // 全局配置
             .globalConfig(builder -> builder
