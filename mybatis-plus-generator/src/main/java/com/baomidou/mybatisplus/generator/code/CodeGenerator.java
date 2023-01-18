@@ -23,7 +23,7 @@ public class CodeGenerator {
         );
 
         CodeConfig.generator("delivery",
-            new String[]{"delivery"}
+            new String[]{"delivery", "delivery_process"}
         );
     }
 }
