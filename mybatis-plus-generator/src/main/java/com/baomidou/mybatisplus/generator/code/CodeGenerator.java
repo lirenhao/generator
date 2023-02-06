@@ -43,26 +43,26 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "expert";
+        String moduleName = "project";
         // 要构建代码的表名
-        String[] tableNames = {"exp_order", "exp_evaluate", "exp_ratings"};
+        String[] tableNames = {"project_draft"};
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.99:3306/zl_new", "test_root", "root123123"
+                "jdbc:mysql://192.168.11.99:3306/carbon_reduction", "carbon_reduction", "daidaikeji_2022"
             )
             // 全局配置
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.kejian.tool.zl.dao.%s.entity", moduleName))
-                .mapper(String.format("com.kejian.tool.zl.dao.%s.mapper", moduleName))
-                .service(String.format("com.kejian.tool.zl.service.%s", moduleName))
-                .serviceImpl(String.format("com.kejian.tool.zl.service.%s.impl", moduleName))
-                .controller(String.format("com.kejian.tool.zl.app.controller.%s", moduleName))
+                .entity(String.format("com.daidai.carbon.dao.%s.entity", moduleName))
+                .mapper(String.format("com.daidai.carbon.dao.%s.mapper", moduleName))
+                .service(String.format("com.daidai.carbon.service.%s", moduleName))
+                .serviceImpl(String.format("com.daidai.carbon.service.%s.impl", moduleName))
+                .controller(String.format("com.daidai.carbon.web.controller.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
                 .entityBuilder()
-                .formatFileName("%sDO")
+//                .formatFileName("%sDO")
                 .enableChainModel()
                 .enableLombok()
                 .enableRemoveIsPrefix()
