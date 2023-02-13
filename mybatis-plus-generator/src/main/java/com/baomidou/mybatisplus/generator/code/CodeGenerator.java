@@ -25,5 +25,9 @@ public class CodeGenerator {
         CodeConfig.generator("delivery",
             new String[]{"delivery", "delivery_process"}
         );
+
+        CodeConfig.generator("equipment",
+            new String[]{"gm_device_param"}
+        );
     }
 }
