@@ -4,7 +4,7 @@ package ${package.Entity};
 import ${pkg};
 </#list>
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.kejian.framework.energy.model.entity.BaseEntity;
+import com.kejian.eventTracking.backend.model.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

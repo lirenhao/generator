@@ -1,9 +1,9 @@
 package ${package.Controller};
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.kejian.framework.energy.common.data.Rest;
-import com.kejian.framework.energy.common.data.RestBody;
-import com.kejian.framework.energy.manager.controller.base.BaseController;
+import com.kejian.eventTracking.backend.common.data.Rest;
+import com.kejian.eventTracking.backend.common.data.RestBody;
+import com.kejian.eventTracking.backend.manager.controller.base.BaseController;
 import ${package.DTO}.${entity?replace("Entity", "")}DeleteDTO;
 import ${package.DTO}.${entity?replace("Entity", "")}InsertDTO;
 import ${package.DTO}.${entity?replace("Entity", "")}QueryDTO;

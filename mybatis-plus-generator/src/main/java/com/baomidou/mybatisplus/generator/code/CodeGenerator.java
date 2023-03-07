@@ -9,5 +9,8 @@ public class CodeGenerator {
         CodeConfig.generator("sys",
             new String[]{"sys_resource", "sys_role", "sys_role_resource", "sys_user_role", "sys_login_record", "sys_log"}
         );
+        CodeConfig.generator("app",
+            new String[]{"app_info"}
+        );
     }
 }

@@ -39,7 +39,7 @@ public class CodeConfig {
 
     public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.21:3306/event-tracking", "event-tracking", "appmaidian"
+                "jdbc:mysql://192.168.11.21:3306/event-tracking", "maidian", "event-tracking009"
             )
             // 全局配置
             .globalConfig(builder -> builder
