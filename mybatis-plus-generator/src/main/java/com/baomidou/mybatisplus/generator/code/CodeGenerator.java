@@ -43,11 +43,11 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "project";
+        String moduleName = "template";
         // 要构建代码的表名
-        String[] tableNames = {"project_draft"};
+        String[] tableNames = {"project_design_attachment"};
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.99:3306/carbon_reduction", "carbon_reduction", "daidaikeji_2022"
+                "jdbc:mysql://192.168.11.21:3306/carbon_reduction", "carbon", "carbonreduction008"
             )
             // 全局配置
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
