@@ -43,11 +43,11 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "expert";
+        String moduleName = "mall";
         // 要构建代码的表名
-        String[] tableNames = {"exp_order", "exp_evaluate", "exp_ratings"};
+        String[] tableNames = {"mall_material"};
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.99:3306/zl_new", "test_root", "root123123"
+                "jdbc:mysql://192.168.11.21:3306/zl_new", "zhiliao", "zhiliaoproject002"
             )
             // 全局配置
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
