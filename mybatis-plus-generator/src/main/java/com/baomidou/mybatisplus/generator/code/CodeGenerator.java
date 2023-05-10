@@ -10,7 +10,7 @@ public class CodeGenerator {
             new String[]{"sys_resource", "sys_role", "sys_role_resource", "sys_user_role", "sys_login_record", "sys_log"}
         );
         CodeConfig.generator("app",
-            new String[]{"app_info", "app_page", "app_spm", "app_device"}
+            new String[]{"app_info", "app_page", "app_spm", "app_device", "page_flow", "app_dict_type", "app_dict_data"}
         );
     }
 }
