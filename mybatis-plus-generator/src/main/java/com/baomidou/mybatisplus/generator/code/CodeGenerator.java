@@ -43,9 +43,9 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "mall";
+        String moduleName = "cost";
         // 要构建代码的表名
-        String[] tableNames = {"mall_material"};
+        String[] tableNames = {"cost_order", "cost_pay", "cost_detail", "cost_refund", "sys_patient_account_detail"};
         FastAutoGenerator.create(
                 "jdbc:mysql://192.168.11.21:3306/zl_new", "zhiliao", "zhiliaoproject002"
             )
@@ -53,11 +53,11 @@ public class CodeGenerator {
             .globalConfig(builder -> builder.author("lirenhao").enableSwagger())
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.kejian.tool.zl.dao.%s.entity", moduleName))
-                .mapper(String.format("com.kejian.tool.zl.dao.%s.mapper", moduleName))
-                .service(String.format("com.kejian.tool.zl.service.%s", moduleName))
-                .serviceImpl(String.format("com.kejian.tool.zl.service.%s.impl", moduleName))
-                .controller(String.format("com.kejian.tool.zl.app.controller.%s", moduleName))
+                .entity(String.format("com.daidai.zlbackend.dao.%s.entity", moduleName))
+                .mapper(String.format("com.daidai.zlbackend.dao.%s.mapper", moduleName))
+                .service(String.format("com.daidai.zlbackend.service.%s", moduleName))
+                .serviceImpl(String.format("com.daidai.zlbackend.service.%s.impl", moduleName))
+                .controller(String.format("com.daidai.zlbackend.web.controller.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
