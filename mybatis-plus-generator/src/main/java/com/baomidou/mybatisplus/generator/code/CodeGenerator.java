@@ -43,9 +43,9 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "cost";
+        String moduleName = "live";
         // 要构建代码的表名
-        String[] tableNames = {"cost_order", "cost_pay", "cost_detail", "cost_refund", "sys_patient_account_detail"};
+        String[] tableNames = {"live_lecturer", "live_invite", "live_watch", "live_comment", "live_share"};
         FastAutoGenerator.create(
                 "jdbc:mysql://192.168.11.21:3306/zl_new", "zhiliao", "zhiliaoproject002"
             )
