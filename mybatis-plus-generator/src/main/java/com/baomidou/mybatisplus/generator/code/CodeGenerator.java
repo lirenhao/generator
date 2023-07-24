@@ -6,11 +6,20 @@ package com.baomidou.mybatisplus.generator.code;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        CodeConfig.generator("sys",
-            new String[]{"sys_resource", "sys_role", "sys_role_resource", "sys_user_role", "sys_login_record", "sys_log"}
+        CodeConfig.generator("material",
+            new String[]{"material_label", "material_image", "material_video", "material_label_relation"}
         );
-        CodeConfig.generator("app",
-            new String[]{"app_info", "app_page", "app_spm", "app_device", "page_flow", "app_dict_type", "app_dict_data", "app_module"}
+        CodeConfig.generator("client",
+            new String[]{"client_user"}
+        );
+        CodeConfig.generator("qnr",
+            new String[]{"qnr_questionnaire", "qnr_question", "qnr_question_option"}
+        );
+        CodeConfig.generator("scale",
+            new String[]{"scale_type", "scale_info"}
+        );
+        CodeConfig.generator("rights",
+            new String[]{"rights_info", "rights_order", "rights_refund", "rights_scale_relation"}
         );
     }
 }

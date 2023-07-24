@@ -16,7 +16,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.kejian.eventTracking.backend.common.enumeration.DeletedEnum;
+import com.kejian.zhiliao.evaluate.backend.common.enumeration.DeletedEnum;
 
 /**
  * ${table.comment!?replace("表", "")} 服务实现类

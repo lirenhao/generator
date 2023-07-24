@@ -39,7 +39,7 @@ public class CodeConfig {
 
     public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.21:3306/event-tracking", "maidian", "event-tracking009"
+                "jdbc:mysql://192.168.11.21:3306/zl_evaluate", "zl_evaluate", "zl_evaluate4321!@#$"
             )
             // 全局配置
             .globalConfig(builder -> builder
@@ -49,13 +49,13 @@ public class CodeConfig {
             .injectionConfig(InjectionConfig.Builder::build)
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.kejian.eventTracking.backend.model.entity.%s", moduleName))
-                .mapper(String.format("com.kejian.eventTracking.backend.dao.%s", moduleName))
-                .service(String.format("com.kejian.eventTracking.backend.service.%s", moduleName))
-                .serviceImpl(String.format("com.kejian.eventTracking.backend.service.%s.impl", moduleName))
-                .controller(String.format("com.kejian.eventTracking.backend.manager.controller.%s", moduleName))
-                .dto(String.format("com.kejian.eventTracking.backend.model.dto.%s", moduleName))
-                .vo(String.format("com.kejian.eventTracking.backend.model.vo.%s", moduleName))
+                .entity(String.format("com.kejian.zhiliao.evaluate.backend.model.entity.%s", moduleName))
+                .mapper(String.format("com.kejian.zhiliao.evaluate.backend.dao.%s", moduleName))
+                .service(String.format("com.kejian.zhiliao.evaluate.backend.service.%s", moduleName))
+                .serviceImpl(String.format("com.kejian.zhiliao.evaluate.backend.service.%s.impl", moduleName))
+                .controller(String.format("com.kejian.zhiliao.evaluate.backend.manager.controller.%s", moduleName))
+                .dto(String.format("com.kejian.zhiliao.evaluate.backend.model.dto.%s", moduleName))
+                .vo(String.format("com.kejian.zhiliao.evaluate.backend.model.vo.%s", moduleName))
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
