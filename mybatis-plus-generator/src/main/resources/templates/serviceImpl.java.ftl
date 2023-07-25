@@ -52,7 +52,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
             return null;
         }
         ${entity?replace("Entity", "")}VO result = new ${entity?replace("Entity", "")}VO();
-        BeanUtil.copyProperties(result, entity);
+        BeanUtil.copyProperties(entity, result);
         return result;
     }
 
