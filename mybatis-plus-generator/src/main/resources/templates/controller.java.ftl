@@ -1,67 +1,57 @@
 package ${package.Controller};
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.kejian.zhiliao.evaluate.backend.common.data.Rest;
-import com.kejian.zhiliao.evaluate.backend.common.data.RestBody;
-import com.kejian.zhiliao.evaluate.backend.manager.controller.base.BaseController;
-import ${package.DTO}.${entity?replace("Entity", "")}DeleteDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}InsertDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}QueryDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}UpdateDTO;
-import ${package.VO}.${entity?replace("Entity", "")}VO;
 import ${package.Service}.${table.serviceName};
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.*;
+import cn.hutool.core.util.StrUtil;
+import com.xxl.job.core.context.XxlJobHelper;
+import com.xxl.job.core.handler.annotation.XxlJob;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.stream.IntStream;
 
 /**
- * ${table.comment!?replace("表", "")} 前端控制器
+ * ${table.comment} 计划任务
  *
- * @author ${author}
- * @date ${date}
+ * @Auther ${author}
+ * @Date ${date}
  */
-@Api(tags = "${table.comment!?replace("表", "")}")
-@RestController
-@RequestMapping("/admin/${entity?replace("Entity", "")?replace("([a-z])([A-Z]+)", "$1/$2", "r")?lower_case}")
-public class ${table.controllerName} extends BaseController {
+@Component
+@Slf4j
+public class ${table.controllerName} {
+
+    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Resource
     private ${table.serviceName} ${entity?uncap_first?replace("Entity", "")}Service;
 
-    @ApiOperation("分页列表")
-    @GetMapping("/page")
-    public Rest<IPage<${entity?replace("Entity", "")}VO>> getPage(@Valid ${entity?replace("Entity", "")}QueryDTO record) {
-        return RestBody.okData(${entity?uncap_first?replace("Entity", "")}Service.getPage(record, getPage()));
-    }
-
-    @ApiOperation("详情")
-    @GetMapping("/info")
-    public Rest<${entity?replace("Entity", "")}VO> getInfo(@ApiParam(value = "ID", required = true) String id) {
-        return RestBody.okData(${entity?uncap_first?replace("Entity", "")}Service.getInfo(id));
-    }
-
-    @ApiOperation("新增")
-    @PostMapping("/add")
-    public Rest<String> add(@Valid @RequestBody ${entity?replace("Entity", "")}InsertDTO record) {
-        ${entity?uncap_first?replace("Entity", "")}Service.add(record);
-        return RestBody.okData("创建成功");
-    }
-
-    @ApiOperation("修改")
-    @PostMapping("/update")
-    public Rest<String> update(@Valid @RequestBody ${entity?replace("Entity", "")}UpdateDTO record) {
-        ${entity?uncap_first?replace("Entity", "")}Service.updateById(record);
-        return RestBody.okData("修改成功");
-    }
-
-    @ApiOperation("删除")
-    @PostMapping("/delete")
-    public Rest<String> delete(@Valid @RequestBody ${entity?replace("Entity", "")}DeleteDTO record) {
-        ${entity?uncap_first?replace("Entity", "")}Service.deleteById(record);
-        return RestBody.okData("删除成功");
+    /**
+     * 处理${table.comment}的数据
+     */
+    @XxlJob("handle${entity}Data")
+    public void handle${entity}Data(){
+        String param = XxlJobHelper.getJobParam();
+        LocalDate startDate = LocalDate.now().minusDays(1);
+        LocalDate endDate = LocalDate.now().minusDays(1);
+        if (StrUtil.isNotEmpty(param)) {
+            String[] params = param.split(":");
+            startDate = LocalDate.parse(params[0], df);
+            endDate = LocalDate.parse(params[1], df);
+        }
+        if (endDate.compareTo(startDate) < 0) {
+            log.warn("handle${entity}Data开始日期[{}]不能大于结束日期[{}]", startDate, endDate);
+            return;
+        }
+        log.info("handle${entity}Data({}, {})-start", startDate, endDate);
+        int num = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        LocalDate finalStartDate = startDate;
+        IntStream.range(0, num + 1).forEach(i -> {
+            LocalDate bizDate = finalStartDate.plusDays(i);
+            ${entity?uncap_first?replace("Entity", "")}Service.handleData(bizDate);
+        });
+        log.info("handle${entity}Data({}, {})-end", startDate, endDate);
     }
 }

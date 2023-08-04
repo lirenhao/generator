@@ -26,12 +26,12 @@ public class CodeConfig {
      */
     private static Map<OutputFile, String> getPathInfo(String moduleName) {
         Map<OutputFile, String> pathInfo = new HashMap<>();
-        pathInfo.put(OutputFile.entity, String.format("%s/model/entity/%s", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.entity, String.format("%s/model/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.mapper, String.format("%s/dao/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.xml, String.format("%s/mapper/%s", PARENT_DIR, moduleName));
-        pathInfo.put(OutputFile.service, String.format("%s/service/%s", PARENT_DIR, moduleName));
-        pathInfo.put(OutputFile.serviceImpl, String.format("%s/service/%s/impl", PARENT_DIR, moduleName));
-        pathInfo.put(OutputFile.controller, String.format("%s/manager/controller/%s", PARENT_DIR, moduleName));
+        pathInfo.put(OutputFile.service, String.format("%s/service", PARENT_DIR));
+        pathInfo.put(OutputFile.serviceImpl, String.format("%s/service/impl", PARENT_DIR));
+        pathInfo.put(OutputFile.controller, String.format("%s/schedule", PARENT_DIR));
         pathInfo.put(OutputFile.dto, String.format("%s/model/dto/%s", PARENT_DIR, moduleName));
         pathInfo.put(OutputFile.vo, String.format("%s/model/vo/%s", PARENT_DIR, moduleName));
         return pathInfo;
@@ -39,7 +39,7 @@ public class CodeConfig {
 
     public static void generator(String moduleName, String[] tableNames) {
         FastAutoGenerator.create(
-                "jdbc:mysql://192.168.11.21:3306/zl_evaluate", "zl_evaluate", "zl_evaluate4321!@#$"
+                "jdbc:mysql://192.168.11.21:3306/event-tracking-common", "event-tracking-common", "kejiankeji"
             )
             // 全局配置
             .globalConfig(builder -> builder
@@ -49,13 +49,11 @@ public class CodeConfig {
             .injectionConfig(InjectionConfig.Builder::build)
             // 包配置
             .packageConfig(builder -> builder.parent("").xml("mapper")
-                .entity(String.format("com.kejian.zhiliao.evaluate.backend.model.entity.%s", moduleName))
-                .mapper(String.format("com.kejian.zhiliao.evaluate.backend.dao.%s", moduleName))
-                .service(String.format("com.kejian.zhiliao.evaluate.backend.service.%s", moduleName))
-                .serviceImpl(String.format("com.kejian.zhiliao.evaluate.backend.service.%s.impl", moduleName))
-                .controller(String.format("com.kejian.zhiliao.evaluate.backend.manager.controller.%s", moduleName))
-                .dto(String.format("com.kejian.zhiliao.evaluate.backend.model.dto.%s", moduleName))
-                .vo(String.format("com.kejian.zhiliao.evaluate.backend.model.vo.%s", moduleName))
+                .entity(String.format("com.kejian.eventTracking.umeng.model.%s", moduleName))
+                .mapper(String.format("com.kejian.eventTracking.umeng.dao.%s", moduleName))
+                .service("com.kejian.eventTracking.umeng.service")
+                .serviceImpl("com.kejian.eventTracking.umeng.service.impl")
+                .controller("com.kejian.eventTracking.umeng.schedule")
                 .pathInfo(getPathInfo(moduleName)))
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
@@ -63,13 +61,11 @@ public class CodeConfig {
                 .enableChainModel()
                 .enableLombok()
                 .enableRemoveIsPrefix()
-                .logicDeleteColumnName("deleted")
-                .addSuperEntityColumns("id", "create_by", "create_time", "update_by", "update_time", "tenant_id", "deleted", "disabled", "sort")
-                .formatFileName("%sEntity")
+                .formatFileName("%s")
                 .enableFileOverride()
                 .controllerBuilder()
                 .enableRestStyle()
-                .formatFileName("%sController")
+                .formatFileName("%sSchedule")
                 .enableFileOverride()
                 .serviceBuilder()
                 .superServiceClass(IService.class)
@@ -80,12 +76,8 @@ public class CodeConfig {
                 .enableBaseResultMap()
                 .enableBaseColumnList()
                 .superClass(BaseMapper.class)
-                .formatMapperFileName("%sMapper")
+                .formatMapperFileName("%sDao")
                 .formatXmlFileName("%sMapper")
-                .enableFileOverride()
-                .voBuilder()
-                .enableFileOverride()
-                .dtoBuilder()
                 .enableFileOverride()
             )
             // 使用Freemarker引擎模板，默认的是Velocity引擎模板

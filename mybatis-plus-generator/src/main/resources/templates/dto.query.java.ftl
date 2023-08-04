@@ -7,8 +7,8 @@ import lombok.Data;
 /**
  * ${table.comment!?replace("表", "")}查询对象
  *
- * @author ${author}
- * @date ${date}
+ * @Auther ${author}
+ * @Date ${date}
  */
 @Data
 @ApiModel("${table.comment!?replace("表", "")}查询对象")

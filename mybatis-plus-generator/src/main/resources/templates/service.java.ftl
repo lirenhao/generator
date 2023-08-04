@@ -1,58 +1,19 @@
 package ${package.Service};
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import ${package.Entity}.${entity};
-import ${superServiceClassPackage};
-import ${package.DTO}.${entity?replace("Entity", "")}DeleteDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}InsertDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}QueryDTO;
-import ${package.DTO}.${entity?replace("Entity", "")}UpdateDTO;
-import ${package.VO}.${entity?replace("Entity", "")}VO;
+import java.time.LocalDate;
 
 /**
- * ${table.comment!?replace("表", "")} 服务类
+ * ${table.comment} 数据处理
  *
- * @author ${author}
- * @data ${date}
+ * @Auther ${author}
+ * @Date ${date}
  */
-public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+public interface ${table.serviceName} {
 
     /**
-    * 获取分页列表
+    * 处理业务日期的数据
     *
-    * @param query 查询参数
-    * @param page 分页参数
-    * @return Page<${entity?replace("Entity", "")}VO>
-    **/
-    IPage<${entity?replace("Entity", "")}VO> getPage(${entity?replace("Entity", "")}QueryDTO query, Page<${entity}> page);
-
-    /**
-    * 获取详情
-    *
-    * @param id ID
-    * @return ${entity?replace("Entity", "")}VO
-    **/
-    ${entity?replace("Entity", "")}VO getInfo(String id);
-
-    /**
-    * 新建
-    *
-    * @param record 新建参数
-    **/
-    void add(${entity?replace("Entity", "")}InsertDTO record);
-
-    /**
-    * 更新
-    *
-    * @param record 修改参数
-    **/
-    void updateById(${entity?replace("Entity", "")}UpdateDTO record);
-
-    /**
-    * 删除
-    *
-    * @param record 删除参数
-    **/
-    void deleteById(${entity?replace("Entity", "")}DeleteDTO record);
+    * @param bizDate 日期
+    */
+    void handleData(LocalDate bizDate);
 }

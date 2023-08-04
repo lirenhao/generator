@@ -1,26 +1,22 @@
 package ${package.Entity};
 
-<#list table.importPackages as pkg>
-import ${pkg};
-</#list>
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.kejian.zhiliao.evaluate.backend.model.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * ${table.comment!?replace("表", "")}
+ * ${table.comment}
  *
- * @author ${author}
- * @date ${date}
+ * @Auther ${author}
+ * @Date ${date}
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("${schemaName}${table.name}")
-@ApiModel("${table.comment!?replace("表", "")}")
-public class ${entity} extends BaseEntity {
+@Entity
+@Table(name = "${schemaName}${table.name}")
+public class ${entity} {
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
 
@@ -28,7 +24,13 @@ public class ${entity} extends BaseEntity {
     /**
     * ${field.comment}
     */
-    @ApiModelProperty("${field.comment}")
+    </#if>
+    <#if field.propertyName == "id">
+    @Id
+    @GeneratedValue(generator = "system_uuid")
+    @GenericGenerator(name = "system_uuid", strategy = "uuid.hex")
+    <#else>
+    @Column(name = "${field.name}")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>

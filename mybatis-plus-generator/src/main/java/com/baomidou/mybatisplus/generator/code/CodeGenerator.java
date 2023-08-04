@@ -6,20 +6,12 @@ package com.baomidou.mybatisplus.generator.code;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        CodeConfig.generator("material",
-            new String[]{"material_label", "material_image", "material_video", "material_label_relation"}
-        );
-        CodeConfig.generator("client",
-            new String[]{"client_user"}
-        );
-        CodeConfig.generator("qnr",
-            new String[]{"qnr_questionnaire", "qnr_question", "qnr_question_option"}
-        );
-        CodeConfig.generator("scale",
-            new String[]{"scale_type", "scale_info"}
-        );
-        CodeConfig.generator("rights",
-            new String[]{"rights_info", "rights_order", "rights_refund", "rights_scale_relation"}
+        CodeConfig.generator("common",
+            new String[]{
+                "biz_basic",
+                "biz_scm", "biz_page", "biz_area", "biz_os_version", "biz_oems", "biz_device_model", "biz_network_type", "biz_telco", "biz_app_version",
+                "biz_open_count", "biz_use_duration", "biz_use_count", "biz_keep_day", "biz_huahua_community"
+            }
         );
     }
 }

@@ -1,16 +1,17 @@
 package ${package.Mapper};
 
-import ${superMapperClassPackage};
 import ${package.Entity}.${entity};
-<#if mapperAnnotationClass??>
-import ${mapperAnnotationClass.name};
-</#if>
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 /**
- * ${table.comment!?replace("表", "")} Mapper 接口
+ * ${table.comment} Dao 接口
  *
- * @author ${author}
- * @date ${date}
+ * @Auther ${author}
+ * @Date ${date}
  */
 <#if mapperAnnotationClass??>
 @${mapperAnnotationClass.simpleName}
@@ -18,7 +19,9 @@ import ${mapperAnnotationClass.name};
 <#if kotlin>
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 <#else>
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface ${table.mapperName} extends JpaRepository<${entity}, String>, JpaSpecificationExecutor<${entity}> {
 
+    @Transactional
+    void deleteByBizDate(LocalDate bizDate);
 }
 </#if>
