@@ -1,9 +1,7 @@
 package ${package.ServiceImpl};
 
 import ${package.Mapper}.${table.mapperName};
-import com.kejian.eventTracking.umeng.dao.common.NewUserDao;
 import ${package.Entity}.${entity};
-import com.kejian.eventTracking.umeng.model.common.NewUser;
 import ${package.Service}.${table.serviceName};
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -38,29 +36,28 @@ public class ${table.serviceImplName} implements ${table.serviceName} {
     private MongoTemplate mongoTemplate;
     @Resource
     private ${table.mapperName} ${entity?uncap_first?replace("Entity", "")}Dao;
-    @Resource
-    private NewUserDao newUserDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void handleData(LocalDate bizDate) {
         ${entity?uncap_first?replace("Entity", "")}Dao.deleteByBizDate(bizDate);
-        List<String> newUserIds = newUserDao.findByNewDate(bizDate).stream()
-                .map(NewUser::getUserId).collect(Collectors.toList());
-        List<${entity}> list = get${entity}s(bizDate, newUserIds);
+        List<${entity}> list = get${entity}s(bizDate);
         ${entity?uncap_first?replace("Entity", "")}Dao.saveAll(list);
     }
 
-    private List<${entity}> get${entity}s(LocalDate bizDate, List<String> newUserIds) {
+    private List<${entity}> get${entity}s(LocalDate bizDate) {
         Criteria criteria = Criteria.where("start_time")
                 .gte(LocalDateTime.of(bizDate, LocalTime.of(0, 0, 0)).plusHours(8))
                 .lt(LocalDateTime.of(bizDate.plusDays(1), LocalTime.of(0, 0, 0)).plusHours(8));
         // 构建聚合
         Aggregation aggregation = newAggregation(
                 match(criteria),
-                group("app_id", "user_id").count().as("active_count")
-                        .sum(ConditionalOperators.when(where("route").is("/app")).then(ConvertOperators.valueOf("residence_time").convertToDouble()).otherwise((double) 0)).as("active_time"),
-                project("app_id", "user_id", "active_count", "active_time").andExclude("_id")
+                project().and("start_time").dateAsFormattedString("%Y-%m-%d").as("biz_date")
+                    .and("app_id").as("app_id")
+                    .and("user_id").as("user_id")
+                    .and("").as(""),
+                group("app_id", "biz_date", "user_id", "").count().as("total_count"),
+                project("app_id", "biz_date", "user_id", "").andExclude("_id")
         );
         // 执行聚合操作
         AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "flow_tracking", Document.class);
