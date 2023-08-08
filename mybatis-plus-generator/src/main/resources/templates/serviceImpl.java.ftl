@@ -54,10 +54,10 @@ public class ${table.serviceImplName} implements ${table.serviceName} {
                 match(criteria),
                 project().and("start_time").dateAsFormattedString("%Y-%m-%d").as("biz_date")
                     .and("app_id").as("app_id")
-                    .and("user_id").as("user_id")
+                    .and("device_id").as("device_id")
                     .and("").as(""),
-                group("app_id", "biz_date", "user_id", "").count().as("total_count"),
-                project("app_id", "biz_date", "user_id", "").andExclude("_id")
+                group("app_id", "biz_date", "device_id", "").count().as("total_count"),
+                project("app_id", "biz_date", "device_id", "").andExclude("_id")
         );
         // 执行聚合操作
         AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "flow_tracking", Document.class);
