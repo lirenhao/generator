@@ -1,7 +1,9 @@
 package ${package.ServiceImpl};
 
 import ${package.Mapper}.${table.mapperName};
+import com.kejian.eventTracking.umeng.dao.common.NewUserDao;
 import ${package.Entity}.${entity};
+import com.kejian.eventTracking.umeng.model.common.NewUser;
 import ${package.Service}.${table.serviceName};
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -36,16 +38,20 @@ public class ${table.serviceImplName} implements ${table.serviceName} {
     private MongoTemplate mongoTemplate;
     @Resource
     private ${table.mapperName} ${entity?uncap_first?replace("Entity", "")}Dao;
+    @Resource
+    private NewUserDao newUserDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void handleData(LocalDate bizDate) {
         ${entity?uncap_first?replace("Entity", "")}Dao.deleteByBizDate(bizDate);
-        List<${entity}> list = get${entity}s(bizDate);
+        List<String> newUserIds = newUserDao.findByNewDate(bizDate).stream()
+                .map(NewUser::getUserId).collect(Collectors.toList());
+        List<${entity}> list = get${entity}s(bizDate, newUserIds);
         ${entity?uncap_first?replace("Entity", "")}Dao.saveAll(list);
     }
 
-    private List<${entity}> get${entity}s(LocalDate bizDate) {
+    private List<${entity}> get${entity}s(LocalDate bizDate, List<String> newUserIds) {
         Criteria criteria = Criteria.where("start_time")
                 .gte(LocalDateTime.of(bizDate, LocalTime.of(0, 0, 0)).plusHours(8))
                 .lt(LocalDateTime.of(bizDate.plusDays(1), LocalTime.of(0, 0, 0)).plusHours(8));
