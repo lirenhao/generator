@@ -43,9 +43,9 @@ public class CodeGenerator {
     }
 
     public static void main(String[] args) {
-        String moduleName = "live";
+        String moduleName = "patient";
         // 要构建代码的表名
-        String[] tableNames = {"live_lecturer", "live_invite", "live_watch", "live_comment", "live_share"};
+        String[] tableNames = {"tre_lesson_plan", "fd_face_record", "fd_evaluate", "sys_patient", "patient_collect_type", "patient_collect_item", "patient_collect_info", "patient_tenant"};
         FastAutoGenerator.create(
                 "jdbc:mysql://192.168.11.21:3306/zl_new", "zhiliao", "zhiliaoproject002"
             )
@@ -62,6 +62,8 @@ public class CodeGenerator {
             // 策略配置
             .strategyConfig(builder -> builder.addInclude(tableNames)
                 .entityBuilder()
+                .logicDeleteColumnName("deleted")
+                .addTableFills(new Column("create_time", FieldFill.INSERT), new Column("update_time", FieldFill.INSERT_UPDATE))
                 .formatFileName("%sDO")
                 .enableChainModel()
                 .enableLombok()
